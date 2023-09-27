@@ -2,12 +2,13 @@ const products = require("../data/db.json");
 
 const getAllProducts = async (req, res) => {
   try {
-    const { category, price, condition } = req.query;
+    const { category, minPrice, maxPrice, condition } = req.query;
 
     const filteredProducts = products.filter((product) => {
       return (
         (!category || product.category === category) &&
-        (!price || product.price <= price) &&
+        (!minPrice || product.price >= minPrice) &&
+        (!maxPrice || product.price <= maxPrice) &&
         (!condition || product.condition === condition)
       );
     });
