@@ -6,7 +6,7 @@ const {
   // addItem,
   // updateItem,
   // deleteItem,
-} = require("../controllers/index.js");
+} = require("../controllers/index");
 
 // GET all items
 router.get("/products", getAllProducts);
