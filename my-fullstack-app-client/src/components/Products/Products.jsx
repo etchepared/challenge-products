@@ -1,75 +1,35 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Sidebar } from "../Sidebar/Sidebar";
+import FiltersContext from "../../context/filtersContext";
 
-export function Products({ category, minPrice, maxPrice, condition }) {
+export function Products({ category, minPrice, maxPrice }) {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const { productCondition } = useContext(FiltersContext);
 
   const apiUrl = new URL("http://localhost:5000/products");
   category && apiUrl.searchParams.append("category", category);
   minPrice && apiUrl.searchParams.append("minPrice", minPrice);
   maxPrice && apiUrl.searchParams.append("maxPrice", maxPrice);
-  condition && apiUrl.searchParams.append("condition", condition);
-
-  const categories = [
-    "cell_phone",
-    "clock",
-    "headphone",
-    "ipad",
-    "iphone",
-    "memory",
-    "printer",
-    "tablet",
-  ];
+  productCondition && apiUrl.searchParams.append("condition", productCondition);
 
   useEffect(() => {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
+        //console.log("data", productCondition);
         setProducts(data);
       })
       .catch((error) => {
         console.error("Error fetching products: ", error);
       });
     return () => {};
-  }, [category, minPrice, maxPrice, condition]);
+  }, [category, minPrice, maxPrice, productCondition]);
 
   return (
     <main>
-      <h2>Filters</h2>
-      <ul>
-        Categories:
-        {categories.map((c) => {
-          return (
-            <li key={c}>
-              <input type="checkbox" />
-              {c}
-            </li>
-          );
-        })}
-      </ul>
-      <label>
-        Top 10 Low to High Price <input type="checkbox" />
-      </label>
-      <br />
-      <label>
-        Top 10 High to Low Price <input type="checkbox" />
-      </label>
-      <ul>
-        Condition:
-        <li>
-          New
-          <input type="checkbox" />
-        </li>
-        <li>
-          Used
-          <input type="checkbox" />
-        </li>
-      </ul>
-      <>
-        <label>
-          SearchBar: <input type="search" placeholder="Search by name" />
-        </label>
-      </>
+      <Sidebar />
+
       <h1>Products</h1>
       <div className="product">
         {products &&
@@ -80,6 +40,7 @@ export function Products({ category, minPrice, maxPrice, condition }) {
                 <img src={product.image} alt={product.id} width={"300px"} />
                 <h4>Category: {product.category}</h4>
                 <h3>$ {product.price}</h3>
+                <h4>Condition: {product.condition}</h4>
               </div>
             );
           })}
