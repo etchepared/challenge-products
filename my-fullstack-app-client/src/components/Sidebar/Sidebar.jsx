@@ -3,8 +3,12 @@ import "./sidebar.css";
 import FiltersContext from "../../context/filtersContext";
 
 export function Sidebar(params) {
-  const { productCondition, handleProductCondition } =
-    useContext(FiltersContext);
+  const {
+    productCondition,
+    handleProductCondition,
+    productCategory,
+    handleProductCategory,
+  } = useContext(FiltersContext);
 
   const categories = [
     "cell_phone",
@@ -18,54 +22,52 @@ export function Sidebar(params) {
   ];
 
   return (
-    <>
-      <div className="filters">
-        <h2>Filters</h2>
-        <ul>
-          <div className="categories">
-            Categories:
-            {categories.map((c) => {
-              return (
-                <li key={c}>
-                  <input value={c} type="checkbox" />
-                  {c}
-                </li>
-              );
-            })}
-          </div>
-        </ul>
+    <div className="filters">
+      <h2>Filters</h2>
+      <ul>
+        <div className="categories">
+          Categories:
+          {categories.map((category) => {
+            return (
+              <li key={category}>
+                <input
+                  type="checkbox"
+                  value={category}
+                  onClick={handleProductCategory}
+                />
+                {category}
+              </li>
+            );
+          })}
+        </div>
+      </ul>
+      <label>
+        Top 10 Low to High Price <input type="checkbox" />
+      </label>
+      <br />
+      <label>
+        Top 10 High to Low Price <input type="checkbox" />
+      </label>
+      <ul>
+        Condition:
+        <li>
+          New
+          <input type="checkbox" value="new" onClick={handleProductCondition} />
+        </li>
+        <li>
+          Used
+          <input
+            type="checkbox"
+            value="used"
+            onClick={handleProductCondition}
+          />
+        </li>
+      </ul>
+      <>
         <label>
-          Top 10 Low to High Price <input type="checkbox" />
+          SearchBar: <input type="search" placeholder="Search by name" />
         </label>
-        <br />
-        <label>
-          Top 10 High to Low Price <input type="checkbox" />
-        </label>
-        <ul>
-          Condition:
-          <li>
-            New
-            <input
-              type="checkbox"
-              value="new"
-              onClick={handleProductCondition}
-            />
-          </li>
-          <li>
-            Used
-            <input
-              type="checkbox"
-              value="used"
-              onClick={handleProductCondition}
-            />
-          </li>
-        </ul>
-        <>
-          <label>
-            SearchBar: <input type="search" placeholder="Search by name" />
-          </label>
-        </>
-      </div>
-    </>
+      </>
+    </div>
   );
 }

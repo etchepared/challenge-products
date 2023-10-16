@@ -4,6 +4,7 @@ const FiltersContext = createContext();
 
 const FiltersProvider = ({ children }) => {
   const [productCondition, setProductCondition] = useState("");
+  const [productCategory, setProductCategory] = useState("");
 
   const handleProductCondition = (event) => {
     if (event.target.checked) {
@@ -18,7 +19,20 @@ const FiltersProvider = ({ children }) => {
     }
   };
 
-  const data = { productCondition, handleProductCondition };
+  const handleProductCategory = (event) => {
+    if (event.target.checked) {
+      setProductCategory(event.target.value);
+    } else {
+      setProductCategory("");
+    }
+  };
+
+  const data = {
+    productCondition,
+    handleProductCondition,
+    productCategory,
+    handleProductCategory,
+  };
 
   return (
     <FiltersContext.Provider value={data}>{children}</FiltersContext.Provider>
