@@ -8,6 +8,8 @@ export function Sidebar(params) {
     handleProductCondition,
     productCategory,
     handleProductCategory,
+    productOrderByPrice,
+    handleProductOrderByPrice,
   } = useContext(FiltersContext);
 
   const categories = [
@@ -42,11 +44,21 @@ export function Sidebar(params) {
         </div>
       </ul>
       <label>
-        Top 10 Low to High Price <input type="checkbox" />
+        Top 10 Low to High Price{" "}
+        <input
+          type="checkbox"
+          value="low"
+          onClick={handleProductOrderByPrice}
+        />
       </label>
       <br />
       <label>
-        Top 10 High to Low Price <input type="checkbox" />
+        Top 10 High to Low Price{" "}
+        <input
+          type="checkbox"
+          value="high"
+          onClick={handleProductOrderByPrice}
+        />
       </label>
       <ul>
         Condition:

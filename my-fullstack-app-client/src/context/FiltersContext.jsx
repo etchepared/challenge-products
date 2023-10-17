@@ -5,15 +5,11 @@ const FiltersContext = createContext();
 const FiltersProvider = ({ children }) => {
   const [productCondition, setProductCondition] = useState("");
   const [productCategory, setProductCategory] = useState("");
+  const [productOrderByPrice, setProductOrderByPrice] = useState("");
 
   const handleProductCondition = (event) => {
     if (event.target.checked) {
-      if (event.target.value === "used") {
-        setProductCondition("used");
-      }
-      if (event.target.value === "new") {
-        setProductCondition("new");
-      }
+      setProductCondition(event.target.value);
     } else {
       setProductCondition("");
     }
@@ -27,11 +23,21 @@ const FiltersProvider = ({ children }) => {
     }
   };
 
+  const handleProductOrderByPrice = (event) => {
+    if (event.target.checked) {
+      setProductOrderByPrice(event.target.value);
+    } else {
+      setProductOrderByPrice("");
+    }
+  };
+
   const data = {
     productCondition,
     handleProductCondition,
     productCategory,
     handleProductCategory,
+    productOrderByPrice,
+    handleProductOrderByPrice,
   };
 
   return (
