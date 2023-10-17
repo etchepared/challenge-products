@@ -34,36 +34,43 @@ export function Products() {
   }, [productCategory, productOrderByPrice, productCondition, productTitle]);
 
   if (productOrderByPrice === "low") {
-    products.sort(function (a, b) {
-      if (a.price > b.price) {
-        return 1;
-      }
-      if (a.price < b.price) {
-        return -1;
-      }
-      // a must be equal to b
-      return 0;
-    });
+    products &&
+      products.sort(function (a, b) {
+        if (a.price > b.price) {
+          return 1;
+        }
+        if (a.price < b.price) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      });
     products.length = 10;
   }
 
   if (productOrderByPrice === "high") {
-    products.sort(function (a, b) {
-      if (a.price < b.price) {
-        return 1;
-      }
-      if (a.price > b.price) {
-        return -1;
-      }
-      // a must be equal to b
-      return 0;
-    });
+    products &&
+      products.sort(function (a, b) {
+        if (a.price < b.price) {
+          return 1;
+        }
+        if (a.price > b.price) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      });
     products.length = 10;
   }
 
-  const filteredProducts = products.filter((product) => {
-    return product.title.toLowerCase().includes(productTitle.toLowerCase());
-  });
+  const filteredProducts =
+    products.length > 0
+      ? products.filter((product) => {
+          return product.title
+            .toLowerCase()
+            .includes(productTitle.toLowerCase());
+        })
+      : [];
 
   return (
     <main>
@@ -71,7 +78,7 @@ export function Products() {
 
       <h1>Products</h1>
       <div className="product">
-        {filteredProducts &&
+        {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => {
             return (
               <div key={product.id}>
@@ -82,7 +89,10 @@ export function Products() {
                 <h4>Condition: {product.condition}</h4>
               </div>
             );
-          })}
+          })
+        ) : (
+          <div>No match</div>
+        )}
       </div>
     </main>
   );
