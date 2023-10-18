@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Sidebar } from "../Sidebar/Sidebar";
 import FiltersContext from "../../context/filtersContext";
+import { orderByPrice } from "../../utils/utils";
 
 export function Products() {
   const [products, setProducts] = useState([]);
@@ -20,11 +21,6 @@ export function Products() {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        //console.log("condition", productCondition);
-        console.log("title", productTitle);
-        //console.log("category", productCategory);
-        //console.log("price", productOrderByPrice);
-        //console.log("products", products);
         setProducts(data);
       })
       .catch((error) => {
@@ -33,35 +29,37 @@ export function Products() {
     return () => {};
   }, [productCategory, productOrderByPrice, productCondition, productTitle]);
 
-  if (productOrderByPrice === "low") {
-    products &&
-      products.sort(function (a, b) {
-        if (a.price > b.price) {
-          return 1;
-        }
-        if (a.price < b.price) {
-          return -1;
-        }
-        // a must be equal to b
-        return 0;
-      });
-    products.length = 10;
-  }
+  // if (productOrderByPrice === "low") {
+  //   products &&
+  //     products.sort(function (a, b) {
+  //       if (a.price > b.price) {
+  //         return 1;
+  //       }
+  //       if (a.price < b.price) {
+  //         return -1;
+  //       }
+  //       // a must be equal to b
+  //       return 0;
+  //     });
+  //   products.length = 10;
+  // }
 
-  if (productOrderByPrice === "high") {
-    products &&
-      products.sort(function (a, b) {
-        if (a.price < b.price) {
-          return 1;
-        }
-        if (a.price > b.price) {
-          return -1;
-        }
-        // a must be equal to b
-        return 0;
-      });
-    products.length = 10;
-  }
+  // if (productOrderByPrice === "high") {
+  //   products &&
+  //     products.sort(function (a, b) {
+  //       if (a.price < b.price) {
+  //         return 1;
+  //       }
+  //       if (a.price > b.price) {
+  //         return -1;
+  //       }
+  //       // a must be equal to b
+  //       return 0;
+  //     });
+  //   products.length = 10;
+  // }
+
+  orderByPrice(productOrderByPrice, products);
 
   const filteredProducts =
     products.length > 0
