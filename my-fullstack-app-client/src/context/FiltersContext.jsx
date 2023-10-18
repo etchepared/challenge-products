@@ -6,6 +6,7 @@ const FiltersProvider = ({ children }) => {
   const [productCondition, setProductCondition] = useState("");
   const [productCategory, setProductCategory] = useState("");
   const [productOrderByPrice, setProductOrderByPrice] = useState("");
+  const [productTitle, setProductTitle] = useState("");
 
   const handleProductCondition = (event) => {
     if (event.target.checked) {
@@ -31,6 +32,14 @@ const FiltersProvider = ({ children }) => {
     }
   };
 
+  const handleProductTitleChange = (event) => {
+    if (event.target.value) {
+      setProductTitle(event.target.value);
+    } else {
+      setProductTitle("");
+    }
+  };
+
   const data = {
     productCondition,
     handleProductCondition,
@@ -38,6 +47,8 @@ const FiltersProvider = ({ children }) => {
     handleProductCategory,
     productOrderByPrice,
     handleProductOrderByPrice,
+    productTitle,
+    handleProductTitleChange,
   };
 
   return (

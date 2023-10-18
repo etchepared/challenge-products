@@ -4,12 +4,10 @@ import FiltersContext from "../../context/filtersContext";
 
 export function Sidebar(params) {
   const {
-    productCondition,
     handleProductCondition,
-    productCategory,
     handleProductCategory,
-    productOrderByPrice,
     handleProductOrderByPrice,
+    handleProductTitleChange,
   } = useContext(FiltersContext);
 
   const categories = [
@@ -77,7 +75,12 @@ export function Sidebar(params) {
       </ul>
       <>
         <label>
-          SearchBar: <input type="search" placeholder="Search by name" />
+          SearchBar:{" "}
+          <input
+            type="search"
+            placeholder="Search by name"
+            onChange={handleProductTitleChange}
+          />
         </label>
       </>
     </div>
