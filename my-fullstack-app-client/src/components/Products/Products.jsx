@@ -20,11 +20,6 @@ export function Products() {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        //console.log("condition", productCondition);
-        console.log("title", productTitle);
-        //console.log("category", productCategory);
-        //console.log("price", productOrderByPrice);
-        //console.log("products", products);
         setProducts(data);
       })
       .catch((error) => {
