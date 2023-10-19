@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Sidebar } from "../Sidebar/Sidebar";
 import FiltersContext from "../../context/filtersContext";
 import { orderByPrice } from "../../utils/utils";
+import "./products.css";
 
 export function Products() {
   const [products, setProducts] = useState([]);
@@ -44,13 +45,13 @@ export function Products() {
     <main>
       <Sidebar />
       <h1>Products</h1>
-      <div className="product">
+      <div className="products">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => {
             return (
-              <div key={product.id}>
+              <div className="product" key={product.id}>
                 <h2>{product.title}</h2>
-                <img src={product.image} alt={product.id} width={"300px"} />
+                <img src={product.image} alt={product.id} />
                 <h4>Category: {product.category}</h4>
                 <h3>$ {product.price}</h3>
                 <h4>Condition: {product.condition}</h4>
