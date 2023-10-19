@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Sidebar } from "../Sidebar/Sidebar";
 import FiltersContext from "../../context/filtersContext";
+import { orderByPrice } from "../../utils/utils";
 
 export function Products() {
   const [products, setProducts] = useState([]);
@@ -26,47 +27,25 @@ export function Products() {
         console.error("Error fetching products: ", error);
       });
     return () => {};
-  }, [productCategory, productOrderByPrice, productCondition, productTitle]);
+  }, [productCategory, productCondition, productTitle]);
 
-  if (productOrderByPrice === "low") {
-    products.sort(function (a, b) {
-      if (a.price > b.price) {
-        return 1;
-      }
-      if (a.price < b.price) {
-        return -1;
-      }
-      // a must be equal to b
-      return 0;
-    });
-    products.length = 10;
-  }
+  orderByPrice(productOrderByPrice, products);
 
-  if (productOrderByPrice === "high") {
-    products.sort(function (a, b) {
-      if (a.price < b.price) {
-        return 1;
-      }
-      if (a.price > b.price) {
-        return -1;
-      }
-      // a must be equal to b
-      return 0;
-    });
-    products.length = 10;
-  }
-
-  const filteredProducts = products.filter((product) => {
-    return product.title.toLowerCase().includes(productTitle.toLowerCase());
-  });
+  const filteredProducts =
+    products.length > 0
+      ? products.filter((product) => {
+          return product.title
+            .toLowerCase()
+            .includes(productTitle.toLowerCase());
+        })
+      : [];
 
   return (
     <main>
       <Sidebar />
-
       <h1>Products</h1>
       <div className="product">
-        {filteredProducts &&
+        {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => {
             return (
               <div key={product.id}>
@@ -77,7 +56,10 @@ export function Products() {
                 <h4>Condition: {product.condition}</h4>
               </div>
             );
-          })}
+          })
+        ) : (
+          <div>No match</div>
+        )}
       </div>
     </main>
   );
