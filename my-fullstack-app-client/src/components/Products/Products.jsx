@@ -27,37 +27,7 @@ export function Products() {
         console.error("Error fetching products: ", error);
       });
     return () => {};
-  }, [productCategory, productOrderByPrice, productCondition, productTitle]);
-
-  // if (productOrderByPrice === "low") {
-  //   products &&
-  //     products.sort(function (a, b) {
-  //       if (a.price > b.price) {
-  //         return 1;
-  //       }
-  //       if (a.price < b.price) {
-  //         return -1;
-  //       }
-  //       // a must be equal to b
-  //       return 0;
-  //     });
-  //   products.length = 10;
-  // }
-
-  // if (productOrderByPrice === "high") {
-  //   products &&
-  //     products.sort(function (a, b) {
-  //       if (a.price < b.price) {
-  //         return 1;
-  //       }
-  //       if (a.price > b.price) {
-  //         return -1;
-  //       }
-  //       // a must be equal to b
-  //       return 0;
-  //     });
-  //   products.length = 10;
-  // }
+  }, [productCategory, productCondition, productTitle]);
 
   orderByPrice(productOrderByPrice, products);
 
@@ -73,7 +43,6 @@ export function Products() {
   return (
     <main>
       <Sidebar />
-
       <h1>Products</h1>
       <div className="product">
         {filteredProducts.length > 0 ? (
