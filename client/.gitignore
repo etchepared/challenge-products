@@ -17,16 +17,8 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
-<<<<<<< HEAD:my-fullstack-app/client/.gitignore
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-=======
-Thumbs.db
-
-# Otros archivos
-*.txt
-*.md
->>>>>>> 8a07c134c3b20b9e4898446cc0794fe0c5134bbf:my-fullstack-app/.gitignore

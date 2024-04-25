@@ -14,17 +14,7 @@ const getAllProducts = async (req, res) => {
     });
 
     if (filteredProducts.length > 0) {
-      const resFilteredProducts = filteredProducts.map((filteredProduct) => {
-        return {
-          id: filteredProduct.id,
-          title: filteredProduct.title,
-          image: filteredProduct.image,
-          category: filteredProduct.category,
-          condition: filteredProduct.condition,
-          price: filteredProduct.price,
-        };
-      });
-      res.status(200).json(resFilteredProducts);
+      res.status(200).json(filteredProducts);
     } else {
       res.status(404).json({ message: "No products found" });
     }
